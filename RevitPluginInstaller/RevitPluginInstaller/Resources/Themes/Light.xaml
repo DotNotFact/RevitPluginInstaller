@@ -1,0 +1,29 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Color x:Key="ApplicationBackgroundDefault">#ffffff</Color>
+    <Color x:Key="ApplicationForegroundDefault">#000000</Color>
+
+    <Color x:Key="ApplicationForegroundDefault100">#151515</Color>
+    
+    <Color x:Key="ApplicationBackgroundDefault100">#ffffff</Color>
+    <Color x:Key="ApplicationBackgroundDefault200">#ececec</Color>
+    <Color x:Key="ApplicationBackgroundDefault300">#d9d9d9</Color>
+    <Color x:Key="ApplicationBackgroundDefault400">#c7c7c7</Color>
+    <Color x:Key="ApplicationBackgroundDefault500">#b4b4b4</Color>
+    <Color x:Key="ApplicationBackgroundDefault600">#a3a3a3</Color>
+
+    <SolidColorBrush x:Key="ApplicationBackgroundDefaultBrush" Color="{StaticResource ApplicationBackgroundDefault}" />
+    <SolidColorBrush x:Key="ApplicationForegroundDefaultBrush" Color="{StaticResource ApplicationForegroundDefault}" />
+
+    <SolidColorBrush x:Key="ApplicationForegroundDefault100Brush" Color="{StaticResource ApplicationForegroundDefault100}" />
+
+    <SolidColorBrush x:Key="ApplicationBackgroundDefault100Brush" Color="{StaticResource ApplicationBackgroundDefault100}" />
+    <SolidColorBrush x:Key="ApplicationBackgroundDefault200Brush" Color="{StaticResource ApplicationBackgroundDefault200}" />
+    <SolidColorBrush x:Key="ApplicationBackgroundDefault300Brush" Color="{StaticResource ApplicationBackgroundDefault300}" />
+    <SolidColorBrush x:Key="ApplicationBackgroundDefault400Brush" Color="{StaticResource ApplicationBackgroundDefault400}" />
+    <SolidColorBrush x:Key="ApplicationBackgroundDefault500Brush" Color="{StaticResource ApplicationBackgroundDefault500}" />
+    <SolidColorBrush x:Key="ApplicationBackgroundDefault600Brush" Color="{StaticResource ApplicationBackgroundDefault600}" /> 
+
+</ResourceDictionary>

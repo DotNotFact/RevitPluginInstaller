@@ -1,0 +1,67 @@
+﻿<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:RevitPluginInstaller.Managers.Bases.Theme">
+
+    <Style x:Key="DefaultWindowStyle" TargetType="{x:Type Window}">
+
+        <Setter Property="Background" Value="{DynamicResource ApplicationBackgroundDefault100Brush}" />
+        <Setter Property="Foreground" Value="{DynamicResource ApplicationForegroundDefaultBrush}" />
+        <Setter Property="FontWeight" Value="Normal" />
+        <Setter Property="FontSize" Value="16" />
+
+        <Setter Property="Height" Value="650" />
+        <Setter Property="Width" Value="650" />
+
+        <Setter Property="MinHeight" Value="520" />
+        <Setter Property="MinWidth" Value="650" />
+
+        <Setter Property="MaxHeight" Value="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenHeight}}" />
+        <Setter Property="MaxWidth" Value="{Binding Source={x:Static SystemParameters.MaximizedPrimaryScreenWidth}}" />
+
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="Padding" Value="0" />
+  
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+
+        <Setter Property="RenderOptions.BitmapScalingMode" Value="Linear" />
+        <Setter Property="TextOptions.TextFormattingMode" Value="Ideal" />
+        <Setter Property="RenderOptions.ClearTypeHint" Value="Enabled" />
+        <Setter Property="RenderOptions.EdgeMode" Value="Unspecified" />
+
+        <Setter Property="OverridesDefaultStyle" Value="True" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="UseLayoutRounding" Value="True" />
+
+        <Setter Property="Template" >
+            <Setter.Value >
+                <ControlTemplate TargetType="{x:Type Window}">
+                    <AdornerDecorator>
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ContentPresenter x:Name="ContentPresenter" />
+                        </Border>
+                    </AdornerDecorator>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
+        <Style.Triggers>
+
+            <Trigger Property="WindowState" Value="Normal">
+                <Setter Property="ResizeMode" Value="CanResize" />
+            </Trigger>
+
+            <Trigger Property="WindowState" Value="Maximized">
+                <Setter Property="ResizeMode" Value="NoResize" />
+                <Setter Property="Topmost" Value="False" /> 
+            </Trigger>
+
+        </Style.Triggers>
+
+    </Style> 
+
+    <Style TargetType="{x:Type Window}" BasedOn="{StaticResource DefaultWindowStyle}" />
+    <Style TargetType="{x:Type local:WindowThemeBase}" BasedOn="{StaticResource DefaultWindowStyle}" />
+
+</ResourceDictionary>
