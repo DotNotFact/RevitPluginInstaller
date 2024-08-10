@@ -1,13 +1,14 @@
-﻿using RevitPluginInstaller.Services.Abstracts;
+﻿using Newtonsoft.Json;
 using RevitPluginInstaller.Models;
-using Newtonsoft.Json; 
+using RevitPluginInstaller.Services.Abstracts;
 using System.IO;
 
 namespace RevitPluginInstaller.Services.Bases;
 
 public class SettingsService : ISettingsService
 {
-    private const string SettingsFileName = "C:\\Revit\\settings.json"; // @AppContext.BaseDirectory
+    private const string SettingsFileName = "settings.json"; 
+    private string _settingsFileName;  
     private SettingsResponse _settings;
 
     public SettingsService()
@@ -17,9 +18,10 @@ public class SettingsService : ISettingsService
 
     private async Task LoadSettingsAsync()
     {
-        if (File.Exists(SettingsFileName))
+        _settingsFileName = AppContext.BaseDirectory + SettingsFileName;
+        if (File.Exists(_settingsFileName))
         {
-            var json = File.ReadAllText(SettingsFileName);
+            var json = File.ReadAllText(_settingsFileName);
             _settings = JsonConvert.DeserializeObject<SettingsResponse>(json) ?? new();
         }
         else
@@ -32,7 +34,7 @@ public class SettingsService : ISettingsService
     private async Task SaveSettingsAsync()
     {
         var json = JsonConvert.SerializeObject(_settings);
-        await File.WriteAllTextAsync(SettingsFileName, json);
+        await File.WriteAllTextAsync(_settingsFileName, json);
     }
 
     public Task<string> GetRevitPathAsync()
