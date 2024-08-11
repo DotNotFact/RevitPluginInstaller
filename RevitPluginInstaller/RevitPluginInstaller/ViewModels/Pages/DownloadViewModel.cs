@@ -123,13 +123,13 @@ public class DownloadViewModel : ViewModel
 
         if (count == 0)
         {
-            MessageBox.Show("Please add plugins to install.");
+            MessageBox.Show("Пожалуйста, выберите плагин");
             return;
         }
 
         if (!await CheckRevitRunningAsync())
         {
-            MessageBox.Show("Revit is currently running. Please close Revit before installing plugins.");
+            MessageBox.Show("Пожалуйста закройте Revit перед установкой плагина.", "Работает Revit");
             return;
         }
 
@@ -161,11 +161,11 @@ public class DownloadViewModel : ViewModel
 
         if (!await CheckRevitRunningAsync())
         {
-            MessageBox.Show("Revit is currently running. Please close Revit before removing plugins.");
+            MessageBox.Show("Пожалуйста закройте Revit перед установкой плагина.", "Работает Revit");
             return;
         }
 
-        var result = await ShowConfirmationAsync("Are you sure you want to remove this plugin? A backup will be created.");
+        var result = await ShowConfirmationAsync("Вы уверены, что хотите удалить этот плагин? Будет создана резервная копия.");
 
         if (result == MessageBoxResult.Yes)
         {
@@ -204,7 +204,7 @@ public class DownloadViewModel : ViewModel
         var versions = _pluginService.GetAvailableRevitVersions(revitPath);
 
         var message = string.Join(Environment.NewLine, versions);
-        await ShowMessageAsync($"Available Revit versions:{Environment.NewLine}{message}");
+        await ShowMessageAsync($"Доступные Revit версии:{Environment.NewLine}{message}");
     }
 
     #endregion

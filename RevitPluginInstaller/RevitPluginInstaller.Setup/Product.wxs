@@ -1,72 +1,100 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?define name="Revit Plugin Installer"?>
+<?define exe="RevitPluginInstaller.exe"?>
+<?define path="$(var.RevitPluginInstaller.TargetDir)"?>
+<?define silentArgs= "/VERYSILENT /NORESTART /SUPPRESSMSGBOXES /MERGETASKS=!runcode"?>
+<?define version="1.0.0"?>
+<?define publisher="Invute"?>
+<?define guid="53bd6b32-7d0b-487b-a1df-5484f88d7082"?>
+
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
 
-	<Product Id="*" Name="RevitPluginInstaller.Setup" Language="1033" Version="1.0.0.0" Manufacturer="RevitPluginInstaller" UpgradeCode="20d8e368-4d93-41ca-901c-2191db0310ec">
+	<Product
+        Id="*"
+        Name="$(var.name)"
+        Language="1033"
+        Version="$(var.version)"
+        Manufacturer="$(var.publisher)"
+        UpgradeCode="$(var.guid)">
 
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+		<Package
+            InstallerVersion="200"
+            Compressed="yes"
+            InstallScope="perMachine"
+            Platform="x64"/>
 
 		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate EmbedCab="yes" />
+		<MediaTemplate EmbedCab="yes"/>
 
-		<Feature Id="ProductFeature" Title="RevitPluginInstaller.Setup" Level="1">
-
+		<Feature Id="ProductFeature" Title="Revit Plugin Installer" Level="1">
 			<ComponentGroupRef Id="ProductComponents" />
-			<ComponentRef Id="ApplicationShortcut" />
-			<ComponentRef Id="DesktopFolderShortcut" />
-
 		</Feature>
+
+		<CustomAction
+            Id="run_exe"
+            Return="asyncWait"
+            Execute="commit"
+            ExeCommand="$(var.silentArgs)"
+            FileKey="executable" />
+
+		<InstallExecuteSequence>
+			<Custom Action="run_exe" After="InstallFiles">NOT Installed</Custom>
+		</InstallExecuteSequence>
 
 	</Product>
 
 	<Fragment>
 
 		<Directory Id="TARGETDIR" Name="SourceDir">
-
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="RevitPluginInstaller.Setup" />
+			<Directory Id="ProgramFiles64Folder">
+				<Directory Id="INSTALLFOLDER" Name="$(var.name)" />
 			</Directory>
-
-			<Directory Id="ProgramMenuFolder">
-				<Directory Id="ApplicationProgramsFolder" Name="RevitPluginInstaller" />
-			</Directory>
-
-			<Directory Id="ProgramDesktopFolder" Name="Desktop" />
-
 		</Directory>
-
-		<DirectoryRef Id="ApplicationProgramsFolder">
-
-			<Component Id="ApplicationShortcut" Guid="4e1ca5ac-f995-47fb-b8d5-d8ceeefeee11">
-				<Shortcut Id="ApplicationStartMenuShortcut" Name="RevitPluginInstaller" Target="[#ProductComponent]" WorkingDirectory="INSTALLFOLDER" />
-				<RemoveFolder Id="CleanUpShortCup" Directory="ApplicationProgramsFolder" On="uninstall"/>
-				<RegistryValue Root="HKCU" Key="Software\RevitPluginInstaller" KeyPath="yes" Type="integer" Value="1" Name="revitplugininstaller" />
-			</Component>
-
-		</DirectoryRef>
-
-		<DirectoryRef Id="ProgramDesktopFolder">
-
-			<Component Id="DesktopFolderShortcut" Guid="7a2161ef-ce3b-43d4-9ca1-3622c826dba4">
-				<Shortcut Id="DesktopShortcut" Name="RevitPluginInstaller" Target="[#ProductComponent]" WorkingDirectory="INSTALLFOLDER" />
-				<RegistryValue Root="HKCU" Key="Software\RevitPluginInstaller" KeyPath="yes" Type="integer" Value="1" Name="revitplugininstaller" />
-			</Component>
-
-		</DirectoryRef>
 
 	</Fragment>
 
 	<Fragment>
 
+		<!-- Включение всех файлов из папки net8.0-windows -->
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-
-			<Component Id="ProductComponent">
-				<File Id="ProductComponent" Source="$(var.RevitPluginInstaller.TargetPath)" />
+			<Component Id="ProductComponent" Guid="198d1270-3eae-4f2c-ad00-f62c1c25e5eb" Win64="yes">
+				<File Id="executable" Name="RevitPluginInstaller.exe" Source="$(var.path)\RevitPluginInstaller.exe" KeyPath="yes" />
+				<File Id="MaterialIconsDll" Name="Material.Icons.dll" Source="$(var.path)\Material.Icons.dll" />
+				<File Id="MaterialIconsWpfDll" Name="Material.Icons.WPF.dll" Source="$(var.path)\Material.Icons.WPF.dll" />
+				<File Id="MicrosoftExtDIAbstractionsDll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.path)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+				<File Id="MicrosoftExtDIDll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.path)\Microsoft.Extensions.DependencyInjection.dll" />
+				<File Id="NewtonsoftJsonDll" Name="Newtonsoft.Json.dll" Source="$(var.path)\Newtonsoft.Json.dll" />
+				<File Id="DepsJson" Name="RevitPluginInstaller.deps.json" Source="$(var.path)\RevitPluginInstaller.deps.json" />
+				<File Id="RuntimeConfigJson" Name="RevitPluginInstaller.runtimeconfig.json" Source="$(var.path)\RevitPluginInstaller.runtimeconfig.json" />
+				<File Id="PdbFile" Name="RevitPluginInstaller.pdb" Source="$(var.path)\RevitPluginInstaller.pdb" />
 			</Component>
-
 		</ComponentGroup>
 
 	</Fragment>
 
+	<!-- Добавление компонента для удаления файлов -->
+	<Fragment>
+
+		<DirectoryRef Id="INSTALLFOLDER">
+			<Component Id="RemoveRevitPlugin" Guid="6508c4a2-e531-4bee-9441-5508f568d0b7" KeyPath="yes">
+				<RemoveFile Id="RemoveRevitPluginFiles" Name="*" On="uninstall" />
+			</Component>
+		</DirectoryRef>
+
+	</Fragment>
+
+	<!-- Скрипт для проверки наличия Autodesk Revit -->
+	<Fragment>
+
+		<CustomAction
+            Id="CheckForRevit"
+            BinaryKey="CheckForRevitBin"
+            DllEntry="CheckForRevit"
+            Execute="immediate"
+            Return="check" />
+
+		<InstallExecuteSequence>
+			<Custom Action="CheckForRevit" Before="InstallInitialize">NOT Installed</Custom>
+		</InstallExecuteSequence>
+
+	</Fragment>
 </Wix>

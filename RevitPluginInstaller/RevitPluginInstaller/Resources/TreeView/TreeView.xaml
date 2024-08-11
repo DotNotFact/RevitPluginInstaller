@@ -24,6 +24,7 @@
         <Setter Property="SnapsToDevicePixels" Value="True" />
         <Setter Property="OverridesDefaultStyle" Value="True" />
 
+        <Setter Property="BorderBrush" Value="{DynamicResource ApplicationBackgroundDefault500Brush}" />
         <Setter Property="Foreground" Value="{DynamicResource ApplicationForegroundDefaultBrush}" />
         <Setter Property="Background" Value="Transparent" />
 
@@ -47,7 +48,7 @@
                         Name="Border"
                         Padding="0" 
                         Background="{TemplateBinding Background}"
-                        BorderBrush="{DynamicResource ApplicationBackgroundDefaultBrush}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
                         BorderThickness="{TemplateBinding BorderThickness}"
                         CornerRadius="5">
 
