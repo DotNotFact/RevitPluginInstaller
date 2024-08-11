@@ -57,16 +57,17 @@
 		<!-- Включение всех файлов из папки net8.0-windows -->
 		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
 			<Component Id="ProductComponent" Guid="198d1270-3eae-4f2c-ad00-f62c1c25e5eb" Win64="yes">
-				<File Id="executable" Name="RevitPluginInstaller.exe" Source="$(var.path)\RevitPluginInstaller.exe" KeyPath="yes" />
-				<File Id="MaterialIconsDll" Name="Material.Icons.dll" Source="$(var.path)\Material.Icons.dll" />
-				<File Id="MaterialIconsWpfDll" Name="Material.Icons.WPF.dll" Source="$(var.path)\Material.Icons.WPF.dll" />
-				<File Id="MicrosoftExtDIAbstractionsDll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.path)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
-				<File Id="MicrosoftExtDIDll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.path)\Microsoft.Extensions.DependencyInjection.dll" />
-				<File Id="NewtonsoftJsonDll" Name="Newtonsoft.Json.dll" Source="$(var.path)\Newtonsoft.Json.dll" />
-				<File Id="DepsJson" Name="RevitPluginInstaller.deps.json" Source="$(var.path)\RevitPluginInstaller.deps.json" />
-				<File Id="RuntimeConfigJson" Name="RevitPluginInstaller.runtimeconfig.json" Source="$(var.path)\RevitPluginInstaller.runtimeconfig.json" />
-				<File Id="PdbFile" Name="RevitPluginInstaller.pdb" Source="$(var.path)\RevitPluginInstaller.pdb" />
-			</Component>
+				 <File Id="executable" Name="RevitPluginInstaller.exe" Source="$(var.path)\RevitPluginInstaller.exe" KeyPath="yes" />
+                <File Id="DllFile" Name="RevitPluginInstaller.dll" Source="$(var.path)\RevitPluginInstaller.dll" />
+                <File Id="MaterialIconsDll" Name="Material.Icons.dll" Source="$(var.path)\Material.Icons.dll" />
+                <File Id="MaterialIconsWpfDll" Name="Material.Icons.WPF.dll" Source="$(var.path)\Material.Icons.WPF.dll" />
+                <File Id="MicrosoftExtDIAbstractionsDll" Name="Microsoft.Extensions.DependencyInjection.Abstractions.dll" Source="$(var.path)\Microsoft.Extensions.DependencyInjection.Abstractions.dll" />
+                <File Id="MicrosoftExtDIDll" Name="Microsoft.Extensions.DependencyInjection.dll" Source="$(var.path)\Microsoft.Extensions.DependencyInjection.dll" />
+                <File Id="NewtonsoftJsonDll" Name="Newtonsoft.Json.dll" Source="$(var.path)\Newtonsoft.Json.dll" />
+                <File Id="DepsJson" Name="RevitPluginInstaller.deps.json" Source="$(var.path)\RevitPluginInstaller.deps.json" />
+                <File Id="RuntimeConfigJson" Name="RevitPluginInstaller.runtimeconfig.json" Source="$(var.path)\RevitPluginInstaller.runtimeconfig.json" />
+                <File Id="PdbFile" Name="RevitPluginInstaller.pdb" Source="$(var.path)\RevitPluginInstaller.pdb" />
+            </Component>
 		</ComponentGroup>
 
 	</Fragment>
